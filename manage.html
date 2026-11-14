@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Manage VPX Tables</title>
+
+  <style>
+    :root {
+      --background: #070914;
+      --panel: #11162a;
+      --panel-light: #171e38;
+      --border: #33406d;
+      --text: #f7f8ff;
+      --muted: #aeb7d8;
+      --cyan: #38e8ff;
+      --green: #56f39a;
+      --yellow: #ffd84a;
+      --red: #ff667d;
+      --shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(
+          circle at 15% 10%,
+          rgba(77, 125, 255, 0.22),
+          transparent 32%
+        ),
+        radial-gradient(
+          circle at 85% 5%,
+          rgba(255, 68, 183, 0.16),
+          transparent 28%
+        ),
+        linear-gradient(145deg, #050711, #0b1022 45%, #070914);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .shell {
+      width: min(1000px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 24px 0 50px;
+    }
+
+    .hero,
+    .panel {
+      border: 1px solid var(--border);
+      background: linear-gradient(
+        145deg,
+        var(--panel-light),
+        var(--panel)
+      );
+      box-shadow: var(--shadow);
+    }
+
+    .hero {
+      padding: 28px 22px;
+      margin-bottom: 18px;
+      border-radius: 22px;
+      text-align: center;
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--cyan);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 6vw, 3.8rem);
+      line-height: 1;
+      text-transform: uppercase;
+      text-shadow: 0 0 18px rgba(56, 232, 255, 0.35);
+    }
+
+    .subtitle {
+      max-width: 680px;
+      margin: 13px auto 0;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px;
+      margin-bottom: 18px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: rgba(17, 22, 42, 0.92);
+    }
+
+    .toolbar-right {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .signed-in-text {
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .button,
+    .primary-button,
+    .danger-button {
+      min-height: 44px;
+      padding: 11px 15px;
+      border-radius: 11px;
+      font-weight: 800;
+    }
+
+    .button {
+      color: white;
+      border: 1px solid var(--border);
+      background: var(--panel-light);
+      text-decoration: none;
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      border-color: var(--cyan);
+    }
+
+    .primary-button {
+      color: #07101b;
+      border: 0;
+      background: linear-gradient(90deg, var(--cyan), var(--green));
+    }
+
+    .danger-button {
+      color: white;
+      border: 1px solid rgba(255, 102, 125, 0.55);
+      background: rgba(255, 102, 125, 0.12);
+    }
+
+    .button:disabled,
+    .primary-button:disabled,
+    .danger-button:disabled {
+      cursor: not-allowed;
+      opacity: 0.55;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .panel {
+      padding: 22px;
+      border-radius: 19px;
+    }
+
+    .panel.full-width {
+      grid-column: 1 / -1;
+    }
+
+    h2 {
+      margin: 0 0 8px;
+      font-size: 1.45rem;
+    }
+
+    .panel-intro {
+      margin: 0 0 20px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--muted);
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    input {
+      width: 100%;
+      min-height: 48px;
+      padding: 11px 13px;
+      color: white;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      outline: none;
+      background: #090d1c;
+    }
+
+    input:focus {
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 3px rgba(56, 232, 255, 0.12);
+    }
+
+    input[type="file"] {
+      padding: 10px;
+    }
+
+    .help {
+      margin: 7px 0 0;
+      color: var(--muted);
+      font-size: 0.8rem;
+      line-height: 1.45;
+    }
+
+    .status {
+      display: none;
+      padding: 13px 14px;
+      margin-top: 15px;
+      border-radius: 11px;
+      line-height: 1.45;
+    }
+
+    .status.show {
+      display: block;
+    }
+
+    .status.success {
+      color: #dffff0;
+      border: 1px solid rgba(86, 243, 154, 0.45);
+      background: rgba(86, 243, 154, 0.10);
+    }
+
+    .status.error {
+      color: #ffe7ec;
+      border: 1px solid rgba(255, 102, 125, 0.45);
+      background: rgba(255, 102, 125, 0.10);
+    }
+
+    .status.info {
+      color: #e4fbff;
+      border: 1px solid rgba(56, 232, 255, 0.4);
+      background: rgba(56, 232, 255, 0.09);
+    }
+
+    .login-panel {
+      max-width: 540px;
+      margin: 0 auto;
+    }
+
+    .preview-summary {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .summary-box {
+      padding: 15px;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      background: #090d1c;
+      text-align: center;
+    }
+
+    .summary-number {
+      display: block;
+      color: white;
+      font-size: 1.7rem;
+      font-weight: 900;
+    }
+
+    .summary-label {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .preview-list {
+      display: grid;
+      gap: 8px;
+      max-height: 460px;
+      padding-right: 4px;
+      overflow-y: auto;
+    }
+
+    .preview-item {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 11px;
+      align-items: start;
+      padding: 11px 12px;
+      border: 1px solid rgba(51, 64, 109, 0.7);
+      border-radius: 11px;
+      background: #090d1c;
+    }
+
+    .preview-item.excluded {
+      opacity: 0.58;
+    }
+
+    .preview-name {
+      color: white;
+      font-weight: 800;
+    }
+
+    .preview-id {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-family: monospace;
+      font-size: 0.75rem;
+      overflow-wrap: anywhere;
+    }
+
+    .preview-reason {
+      display: block;
+      margin-top: 4px;
+      color: var(--yellow);
+      font-size: 0.75rem;
+    }
+
+    .import-controls {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .progress {
+      display: none;
+      margin-top: 15px;
+    }
+
+    .progress.show {
+      display: block;
+    }
+
+    .progress-track {
+      height: 13px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: #090d1c;
+    }
+
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--cyan), var(--green));
+      transition: width 0.15s ease;
+    }
+
+    .progress-text {
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .existing-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 8px;
+      max-height: 420px;
+      overflow-y: auto;
+    }
+
+    .existing-item {
+      padding: 11px 12px;
+      color: white;
+      border: 1px solid rgba(51, 64, 109, 0.7);
+      border-radius: 10px;
+      background: #090d1c;
+    }
+
+    .existing-id {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-family: monospace;
+      font-size: 0.72rem;
+      overflow-wrap: anywhere;
+    }
+
+    .empty-state {
+      padding: 25px 15px;
+      color: var(--muted);
+      border: 1px dashed var(--border);
+      border-radius: 13px;
+      text-align: center;
+    }
+
+    @media (max-width: 760px) {
+      .shell {
+        width: min(100% - 18px, 1000px);
+        padding-top: 10px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .toolbar {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .toolbar-right {
+        justify-content: space-between;
+      }
+
+      .preview-summary {
+        grid-template-columns: 1fr;
+      }
+
+      .import-controls {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="shell">
+    <header class="hero">
+      <p class="eyebrow">VPX Remote Leaderboard</p>
+      <h1>Manage Tables</h1>
+
+      <p class="subtitle">
+        Add individual VPX tables or import a complete list of installed
+        .vpx files.
+      </p>
+    </header>
+
+    <nav class="toolbar">
+      <a class="button" href="index.html">Return to Leaderboard</a>
+
+      <div class="toolbar-right">
+        <span id="signedInText" class="signed-in-text">
+          Checking sign-in...
+        </span>
+
+        <button id="signOutButton" class="button" type="button" hidden>
+          Sign Out
+        </button>
+      </div>
+    </nav>
+
+    <section id="loginPanel" class="panel login-panel">
+      <h2>Player Sign In</h2>
+
+      <p class="panel-intro">
+        Sign in with a registered player account to manage tables.
+      </p>
+
+      <form id="loginForm" class="form-grid">
+        <div>
+          <label for="emailInput">Email address</label>
+
+          <input
+            id="emailInput"
+            type="email"
+            required
+            autocomplete="username"
+          >
+        </div>
+
+        <div>
+          <label for="passwordInput">Password</label>
+
+          <input
+            id="passwordInput"
+            type="password"
+            required
+            autocomplete="current-password"
+          >
+        </div>
+
+        <button id="loginButton" class="primary-button" type="submit">
+          Sign In
+        </button>
+      </form>
+
+      <div
+        id="loginMessage"
+        class="status"
+        role="status"
+        aria-live="polite"
+      ></div>
+    </section>
+
+    <section id="managementArea" class="grid" hidden>
+      <article class="panel">
+        <h2>Add One Table</h2>
+
+        <p class="panel-intro">
+          Use this when either player installs a new VPX table.
+        </p>
+
+        <form id="singleTableForm" class="form-grid">
+          <div>
+            <label for="tableNameInput">Table name</label>
+
+            <input
+              id="tableNameInput"
+              type="text"
+              required
+              maxlength="150"
+              autocomplete="off"
+              placeholder="Godzilla Limited Edition"
+            >
+
+            <p class="help">
+              Enter the display name. The stable database ID will be created
+              automatically.
+            </p>
+          </div>
+
+          <button
+            id="addSingleButton"
+            class="primary-button"
+            type="submit"
+          >
+            Add Table
+          </button>
+        </form>
+
+        <div
+          id="singleMessage"
+          class="status"
+          role="status"
+          aria-live="polite"
+        ></div>
+      </article>
+
+      <article class="panel">
+        <h2>Bulk Import</h2>
+
+        <p class="panel-intro">
+          Select a text file created with
+          <strong>dir /b *.vpx &gt; vpx_tables.txt</strong>.
+        </p>
+
+        <div class="form-grid">
+          <div>
+            <label for="fileInput">VPX table-list file</label>
+
+            <input
+              id="fileInput"
+              type="file"
+              accept=".txt,text/plain"
+            >
+
+            <p class="help">
+              Nothing is imported until you review the preview and click
+              Import Selected Tables.
+            </p>
+          </div>
+        </div>
+
+        <div
+          id="fileMessage"
+          class="status"
+          role="status"
+          aria-live="polite"
+        ></div>
+      </article>
+
+      <article id="previewPanel" class="panel full-width" hidden>
+        <h2>Import Preview</h2>
+
+        <p class="panel-intro">
+          Uncheck anything you do not want on the leaderboard.
+          Calibration and physics-test files are excluded automatically.
+        </p>
+
+        <div class="preview-summary">
+          <div class="summary-box">
+            <span id="foundCount" class="summary-number">0</span>
+            <span class="summary-label">Files Found</span>
+          </div>
+
+          <div class="summary-box">
+            <span id="selectedCount" class="summary-number">0</span>
+            <span class="summary-label">Selected</span>
+          </div>
+
+          <div class="summary-box">
+            <span id="excludedCount" class="summary-number">0</span>
+            <span class="summary-label">Excluded</span>
+          </div>
+        </div>
+
+        <div id="previewList" class="preview-list"></div>
+
+        <div class="import-controls">
+          <button
+            id="importButton"
+            class="primary-button"
+            type="button"
+          >
+            Import Selected Tables
+          </button>
+
+          <button
+            id="clearPreviewButton"
+            class="danger-button"
+            type="button"
+          >
+            Clear Preview
+          </button>
+        </div>
+
+        <div id="progressArea" class="progress">
+          <div class="progress-track">
+            <div id="progressFill" class="progress-fill"></div>
+          </div>
+
+          <div id="progressText" class="progress-text"></div>
+        </div>
+
+        <div
+          id="importMessage"
+          class="status"
+          role="status"
+          aria-live="polite"
+        ></div>
+      </article>
+
+      <article class="panel full-width">
+        <h2>Current Table Inventory</h2>
+
+        <p id="inventoryIntro" class="panel-intro">
+          Loading table inventory...
+        </p>
+
+        <div id="existingList" class="existing-list"></div>
+      </article>
+    </section>
+  </main>
+
+  <script type="module">
+    import {
+      initializeApp
+    } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+
+    import {
+      getAuth,
+      onAuthStateChanged,
+      signInWithEmailAndPassword,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+
+    import {
+      getFirestore,
+      collection,
+      doc,
+      getDoc,
+      getDocs,
+      setDoc,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBBHsii5ui8Y7lYqvG3GyVwOA7bGAFDePM",
+      authDomain: "vpx-remote-leaderboard.firebaseapp.com",
+      projectId: "vpx-remote-leaderboard",
+      storageBucket: "vpx-remote-leaderboard.firebasestorage.app",
+      messagingSenderId: "553175271649",
+      appId: "1:553175271649:web:fb55a1745236ea370f4fa0"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const state = {
+      user: null,
+      player: null,
+      tables: [],
+      previewItems: []
+    };
+
+    const elements = {
+      signedInText: document.getElementById("signedInText"),
+      signOutButton: document.getElementById("signOutButton"),
+
+      loginPanel: document.getElementById("loginPanel"),
+      loginForm: document.getElementById("loginForm"),
+      emailInput: document.getElementById("emailInput"),
+      passwordInput: document.getElementById("passwordInput"),
+      loginButton: document.getElementById("loginButton"),
+      loginMessage: document.getElementById("loginMessage"),
+
+      managementArea: document.getElementById("managementArea"),
+
+      singleTableForm: document.getElementById("singleTableForm"),
+      tableNameInput: document.getElementById("tableNameInput"),
+      addSingleButton: document.getElementById("addSingleButton"),
+      singleMessage: document.getElementById("singleMessage"),
+
+      fileInput: document.getElementById("fileInput"),
+      fileMessage: document.getElementById("fileMessage"),
+
+      previewPanel: document.getElementById("previewPanel"),
+      previewList: document.getElementById("previewList"),
+      foundCount: document.getElementById("foundCount"),
+      selectedCount: document.getElementById("selectedCount"),
+      excludedCount: document.getElementById("excludedCount"),
+      importButton: document.getElementById("importButton"),
+      clearPreviewButton: document.getElementById("clearPreviewButton"),
+      progressArea: document.getElementById("progressArea"),
+      progressFill: document.getElementById("progressFill"),
+      progressText: document.getElementById("progressText"),
+      importMessage: document.getElementById("importMessage"),
+
+      inventoryIntro: document.getElementById("inventoryIntro"),
+      existingList: document.getElementById("existingList")
+    };
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function showMessage(element, message, type = "info") {
+      element.textContent = message;
+      element.className = `status show ${type}`;
+    }
+
+    function clearMessage(element) {
+      element.textContent = "";
+      element.className = "status";
+    }
+
+    function createSlug(value) {
+      return value
+        .normalize("NFKD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .replace(/&/g, " and ")
+        .replace(/['’]/g, "")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "")
+        .slice(0, 100);
+    }
+
+    function cleanFilename(filename) {
+      let name = filename.trim();
+
+      name = name.replace(/^["']|["']$/g, "");
+      name = name.replace(/\\_/g, "_");
+      name = name.replace(/\.vpx$/i, "");
+      name = name.replace(/_/g, " ");
+      name = name.replace(/\s+/g, " ").trim();
+
+      /*
+        Remove obvious file-version and mod suffixes.
+        Meaningful manufacturer/year information is retained.
+      */
+      name = name.replace(
+        /\s+(?:v|ver|version)\s*\d+(?:\.\d+)*(?:\s*)$/i,
+        ""
+      );
+
+      name = name.replace(
+        /\s*-\s*\d+(?:\.\d+){1,3}$/i,
+        ""
+      );
+
+      name = name.replace(
+        /\s*\((?:mod|vpwmod)\)\s*\d+(?:\.\d+)*$/i,
+        ""
+      );
+
+      name = name.replace(
+        /\s+VPWmod\s+v?\d+(?:\.\d+)*$/i,
+        ""
+      );
+
+      name = name.replace(
+        /\s+Bigus\s*\(MOD\)\s*\d+(?:\.\d+)*$/i,
+        ""
+      );
+
+      name = name.replace(/\s+/g, " ").trim();
+
+      return name;
+    }
+
+    function getExclusionReason(filename, cleanedName) {
+      const combined = `${filename} ${cleanedName}`.toLowerCase();
+
+      const excludedPatterns = [
+        {
+          pattern: /nudge.*test|test.*nudge/,
+          reason: "Nudge test/calibration utility"
+        },
+        {
+          pattern: /screen.*calibration|calibration.*screen/,
+          reason: "Screen calibration utility"
+        },
+        {
+          pattern: /elasticity.*test|test.*elasticity/,
+          reason: "Physics elasticity test"
+        },
+        {
+          pattern: /arcade physics/,
+          reason: "Physics test table"
+        },
+        {
+          pattern: /rubber objects/,
+          reason: "Physics test table"
+        }
+      ];
+
+      const match = excludedPatterns.find((item) => {
+        return item.pattern.test(combined);
+      });
+
+      return match ? match.reason : "";
+    }
+
+    function updatePreviewCounts() {
+      const found = state.previewItems.length;
+
+      const selected = state.previewItems.filter((item) => {
+        return item.selected;
+      }).length;
+
+      const excluded = found - selected;
+
+      elements.foundCount.textContent = found;
+      elements.selectedCount.textContent = selected;
+      elements.excludedCount.textContent = excluded;
+
+      elements.importButton.disabled = selected === 0;
+    }
+
+    function renderPreview() {
+      if (state.previewItems.length === 0) {
+        elements.previewPanel.hidden = true;
+        elements.previewList.innerHTML = "";
+        updatePreviewCounts();
+        return;
+      }
+
+      elements.previewPanel.hidden = false;
+
+      elements.previewList.innerHTML = state.previewItems
+        .map((item, index) => {
+          return `
+            <label class="preview-item ${item.selected ? "" : "excluded"}">
+              <input
+                type="checkbox"
+                data-preview-index="${index}"
+                ${item.selected ? "checked" : ""}
+              >
+
+              <span>
+                <span class="preview-name">
+                  ${escapeHtml(item.name)}
+                </span>
+
+                <span class="preview-id">
+                  ${escapeHtml(item.id)}
+                </span>
+
+                ${
+                  item.reason
+                    ? `
+                      <span class="preview-reason">
+                        Automatically excluded: ${escapeHtml(item.reason)}
+                      </span>
+                    `
+                    : ""
+                }
+              </span>
+            </label>
+          `;
+        })
+        .join("");
+
+      elements.previewList
+        .querySelectorAll("[data-preview-index]")
+        .forEach((checkbox) => {
+          checkbox.addEventListener("change", () => {
+            const index = Number(checkbox.dataset.previewIndex);
+
+            state.previewItems[index].selected = checkbox.checked;
+            renderPreview();
+          });
+        });
+
+      updatePreviewCounts();
+    }
+
+    function parseTableFile(contents) {
+      const seenIds = new Set();
+      const parsed = [];
+
+      const lines = contents
+        .split(/\r?\n/)
+        .map((line) => line.trim())
+        .filter(Boolean);
+
+      for (const originalFilename of lines) {
+        if (!/\.vpx$/i.test(originalFilename)) {
+          continue;
+        }
+
+        const name = cleanFilename(originalFilename);
+        let id = createSlug(name);
+
+        if (!name || !id) {
+          continue;
+        }
+
+        /*
+          If two legitimately different tables clean to the same ID,
+          append a short number rather than silently discarding one.
+        */
+        if (seenIds.has(id)) {
+          let suffix = 2;
+          let candidate = `${id}-${suffix}`;
+
+          while (seenIds.has(candidate)) {
+            suffix += 1;
+            candidate = `${id}-${suffix}`;
+          }
+
+          id = candidate;
+        }
+
+        seenIds.add(id);
+
+        const reason = getExclusionReason(originalFilename, name);
+
+        parsed.push({
+          originalFilename,
+          name,
+          id,
+          reason,
+          selected: !reason
+        });
+      }
+
+      return parsed.sort((a, b) => {
+        return a.name.localeCompare(b.name);
+      });
+    }
+
+    async function getRegisteredPlayer(user) {
+      const playerReference = doc(db, "players", user.uid);
+      const snapshot = await getDoc(playerReference);
+
+      if (!snapshot.exists()) {
+        return null;
+      }
+
+      const player = {
+        id: snapshot.id,
+        ...snapshot.data()
+      };
+
+      return player.active === true ? player : null;
+    }
+
+    async function loadInventory() {
+      const snapshot = await getDocs(collection(db, "tables"));
+
+      state.tables = snapshot.docs
+        .map((tableDocument) => {
+          return {
+            id: tableDocument.id,
+            ...tableDocument.data()
+          };
+        })
+        .sort((a, b) => {
+          return String(a.name).localeCompare(String(b.name));
+        });
+
+      elements.inventoryIntro.textContent =
+        `${state.tables.length.toLocaleString("en-US")} tables currently available.`;
+
+      if (state.tables.length === 0) {
+        elements.existingList.innerHTML =
+          '<div class="empty-state">No tables have been added.</div>';
+
+        return;
+      }
+
+      elements.existingList.innerHTML = state.tables
+        .map((table) => {
+          return `
+            <div class="existing-item">
+              ${escapeHtml(table.name)}
+
+              <span class="existing-id">
+                ${escapeHtml(table.id)}
+              </span>
+            </div>
+          `;
+        })
+        .join("");
+    }
+
+    async function addTable(name, requestedId = "") {
+      if (!state.user || !state.player) {
+        throw new Error("A registered player must be signed in.");
+      }
+
+      const cleanedName = cleanFilename(name);
+      const tableId = requestedId || createSlug(cleanedName);
+
+      if (!cleanedName || !tableId) {
+        throw new Error("Enter a valid table name.");
+      }
+
+      const tableReference = doc(db, "tables", tableId);
+      const existing = await getDoc(tableReference);
+
+      if (existing.exists()) {
+        return {
+          status: "skipped",
+          id: tableId,
+          name: cleanedName
+        };
+      }
+
+      await setDoc(tableReference, {
+        name: cleanedName,
+        active: true,
+        createdAt: serverTimestamp(),
+        createdBy: state.user.uid
+      });
+
+      return {
+        status: "created",
+        id: tableId,
+        name: cleanedName
+      };
+    }
+
+    elements.loginForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      clearMessage(elements.loginMessage);
+
+      const email = elements.emailInput.value.trim();
+      const password = elements.passwordInput.value;
+
+      if (!email || !password) {
+        showMessage(
+          elements.loginMessage,
+          "Enter your email address and password.",
+          "error"
+        );
+
+        return;
+      }
+
+      elements.loginButton.disabled = true;
+      elements.loginButton.textContent = "Signing In...";
+
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        elements.loginForm.reset();
+      } catch (error) {
+        console.error(error);
+
+        showMessage(
+          elements.loginMessage,
+          "Sign-in failed. Check the email address and password.",
+          "error"
+        );
+      } finally {
+        elements.loginButton.disabled = false;
+        elements.loginButton.textContent = "Sign In";
+      }
+    });
+
+    elements.signOutButton.addEventListener("click", async () => {
+      await signOut(auth);
+      window.location.href = "index.html";
+    });
+
+    elements.singleTableForm.addEventListener(
+      "submit",
+      async (event) => {
+        event.preventDefault();
+        clearMessage(elements.singleMessage);
+
+        const name = elements.tableNameInput.value.trim();
+
+        if (!name) {
+          showMessage(
+            elements.singleMessage,
+            "Enter a table name.",
+            "error"
+          );
+
+          return;
+        }
+
+        elements.addSingleButton.disabled = true;
+        elements.addSingleButton.textContent = "Adding...";
+
+        try {
+          const result = await addTable(name);
+
+          if (result.status === "skipped") {
+            showMessage(
+              elements.singleMessage,
+              `"${result.name}" already exists and was not added again.`,
+              "info"
+            );
+          } else {
+            showMessage(
+              elements.singleMessage,
+              `"${result.name}" was added successfully.`,
+              "success"
+            );
+
+            elements.singleTableForm.reset();
+            await loadInventory();
+          }
+        } catch (error) {
+          console.error(error);
+
+          showMessage(
+            elements.singleMessage,
+            error.message || "The table could not be added.",
+            "error"
+          );
+        } finally {
+          elements.addSingleButton.disabled = false;
+          elements.addSingleButton.textContent = "Add Table";
+        }
+      }
+    );
+
+    elements.fileInput.addEventListener("change", async () => {
+      clearMessage(elements.fileMessage);
+      clearMessage(elements.importMessage);
+
+      const file = elements.fileInput.files?.[0];
+
+      if (!file) {
+        state.previewItems = [];
+        renderPreview();
+        return;
+      }
+
+      if (!file.name.toLowerCase().endsWith(".txt")) {
+        showMessage(
+          elements.fileMessage,
+          "Select the vpx_tables.txt file.",
+          "error"
+        );
+
+        elements.fileInput.value = "";
+        return;
+      }
+
+      try {
+        const contents = await file.text();
+        state.previewItems = parseTableFile(contents);
+
+        if (state.previewItems.length === 0) {
+          showMessage(
+            elements.fileMessage,
+            "No .vpx filenames were found in the selected file.",
+            "error"
+          );
+
+          renderPreview();
+          return;
+        }
+
+        showMessage(
+          elements.fileMessage,
+          `${state.previewItems.length} VPX filenames were found. Review the preview below.`,
+          "success"
+        );
+
+        renderPreview();
+      } catch (error) {
+        console.error(error);
+
+        showMessage(
+          elements.fileMessage,
+          "The file could not be read.",
+          "error"
+        );
+      }
+    });
+
+    elements.clearPreviewButton.addEventListener("click", () => {
+      state.previewItems = [];
+      elements.fileInput.value = "";
+      clearMessage(elements.fileMessage);
+      clearMessage(elements.importMessage);
+      elements.progressArea.classList.remove("show");
+      renderPreview();
+    });
+
+    elements.importButton.addEventListener("click", async () => {
+      clearMessage(elements.importMessage);
+
+      const selectedItems = state.previewItems.filter((item) => {
+        return item.selected;
+      });
+
+      if (selectedItems.length === 0) {
+        showMessage(
+          elements.importMessage,
+          "Select at least one table.",
+          "error"
+        );
+
+        return;
+      }
+
+      elements.importButton.disabled = true;
+      elements.clearPreviewButton.disabled = true;
+      elements.progressArea.classList.add("show");
+
+      let created = 0;
+      let skipped = 0;
+      let failed = 0;
+
+      for (let index = 0; index < selectedItems.length; index += 1) {
+        const item = selectedItems[index];
+
+        const percent = Math.round(
+          ((index + 1) / selectedItems.length) * 100
+        );
+
+        elements.progressFill.style.width = `${percent}%`;
+        elements.progressText.textContent =
+          `Processing ${index + 1} of ${selectedItems.length}: ${item.name}`;
+
+        try {
+          const result = await addTable(item.name, item.id);
+
+          if (result.status === "created") {
+            created += 1;
+          } else {
+            skipped += 1;
+          }
+        } catch (error) {
+          failed += 1;
+          console.error(`Could not import ${item.name}`, error);
+        }
+      }
+
+      elements.progressText.textContent = "Import complete.";
+
+      const message =
+        `${created} added, ${skipped} already existed, and ` +
+        `${failed} failed.`;
+
+      showMessage(
+        elements.importMessage,
+        message,
+        failed === 0 ? "success" : "error"
+      );
+
+      elements.importButton.disabled = false;
+      elements.clearPreviewButton.disabled = false;
+
+      await loadInventory();
+    });
+
+    onAuthStateChanged(auth, async (user) => {
+      state.user = user;
+      state.player = null;
+
+      if (!user) {
+        elements.signedInText.textContent = "Not signed in";
+        elements.signOutButton.hidden = true;
+        elements.loginPanel.hidden = false;
+        elements.managementArea.hidden = true;
+        return;
+      }
+
+      try {
+        state.player = await getRegisteredPlayer(user);
+
+        if (!state.player) {
+          showMessage(
+            elements.loginMessage,
+            "This account does not have an active player record.",
+            "error"
+          );
+
+          await signOut(auth);
+          return;
+        }
+
+        elements.signedInText.textContent =
+          `Signed in as ${state.player.name}`;
+
+        elements.signOutButton.hidden = false;
+        elements.loginPanel.hidden = true;
+        elements.managementArea.hidden = false;
+
+        await loadInventory();
+      } catch (error) {
+        console.error(error);
+
+        showMessage(
+          elements.loginMessage,
+          "The player record could not be verified.",
+          "error"
+        );
+      }
+    });
+  </script>
+</body>
+</html>
