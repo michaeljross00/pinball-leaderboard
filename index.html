@@ -36,9 +36,22 @@
       min-height: 100vh;
       color: var(--text);
       background:
-        radial-gradient(circle at 15% 10%, rgba(77, 125, 255, 0.22), transparent 32%),
-        radial-gradient(circle at 85% 5%, rgba(255, 68, 183, 0.16), transparent 28%),
-        linear-gradient(145deg, #050711, #0b1022 45%, #070914);
+        radial-gradient(
+          circle at 15% 10%,
+          rgba(77, 125, 255, 0.22),
+          transparent 32%
+        ),
+        radial-gradient(
+          circle at 85% 5%,
+          rgba(255, 68, 183, 0.16),
+          transparent 28%
+        ),
+        linear-gradient(
+          145deg,
+          #050711,
+          #0b1022 45%,
+          #070914
+        );
       font-family: Arial, Helvetica, sans-serif;
     }
 
@@ -65,7 +78,11 @@
       border: 1px solid var(--border);
       border-radius: 22px;
       background:
-        linear-gradient(135deg, rgba(56, 232, 255, 0.10), rgba(255, 68, 183, 0.08)),
+        linear-gradient(
+          135deg,
+          rgba(56, 232, 255, 0.10),
+          rgba(255, 68, 183, 0.08)
+        ),
         rgba(17, 22, 42, 0.90);
       box-shadow: var(--shadow);
     }
@@ -92,8 +109,8 @@
     }
 
     .subtitle {
-      margin: 14px auto 0;
       max-width: 700px;
+      margin: 14px auto 0;
       color: var(--muted);
       line-height: 1.5;
     }
@@ -180,7 +197,11 @@
       padding: 13px 18px;
       color: #07101b;
       border: 0;
-      background: linear-gradient(90deg, var(--cyan), var(--green));
+      background: linear-gradient(
+        90deg,
+        var(--cyan),
+        var(--green)
+      );
       box-shadow: 0 8px 24px rgba(56, 232, 255, 0.18);
     }
 
@@ -206,7 +227,10 @@
 
     .summary-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(
+        auto-fit,
+        minmax(220px, 1fr)
+      );
       gap: 14px;
       margin-bottom: 18px;
     }
@@ -214,11 +238,15 @@
     .summary-card {
       position: relative;
       overflow: hidden;
-      padding: 24px;
       min-height: 150px;
+      padding: 24px;
       border: 1px solid var(--border);
       border-radius: 20px;
-      background: linear-gradient(145deg, var(--panel-light), var(--panel));
+      background: linear-gradient(
+        145deg,
+        var(--panel-light),
+        var(--panel)
+      );
       box-shadow: var(--shadow);
     }
 
@@ -308,7 +336,10 @@
 
     .table-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      grid-template-columns: repeat(
+        auto-fit,
+        minmax(290px, 1fr)
+      );
       gap: 14px;
     }
 
@@ -316,7 +347,11 @@
       overflow: hidden;
       border: 1px solid var(--border);
       border-radius: 18px;
-      background: linear-gradient(145deg, var(--panel-light), var(--panel));
+      background: linear-gradient(
+        145deg,
+        var(--panel-light),
+        var(--panel)
+      );
       box-shadow: var(--shadow);
     }
 
@@ -324,7 +359,11 @@
       padding: 17px 18px;
       color: white;
       border-bottom: 1px solid var(--border);
-      background: linear-gradient(90deg, rgba(56, 232, 255, 0.10), rgba(255, 68, 183, 0.08));
+      background: linear-gradient(
+        90deg,
+        rgba(56, 232, 255, 0.10),
+        rgba(255, 68, 183, 0.08)
+      );
       font-size: 1.05rem;
       font-weight: 900;
       letter-spacing: 0.04em;
@@ -383,7 +422,11 @@
       margin: 0 auto;
       border: 1px solid var(--border);
       border-radius: 20px;
-      background: linear-gradient(145deg, var(--panel-light), var(--panel));
+      background: linear-gradient(
+        145deg,
+        var(--panel-light),
+        var(--panel)
+      );
       box-shadow: var(--shadow);
     }
 
@@ -461,13 +504,20 @@
 
     .history-item {
       display: grid;
-      grid-template-columns: minmax(120px, 1.4fr) minmax(90px, 1fr) auto;
+      grid-template-columns:
+        minmax(120px, 1.4fr)
+        minmax(90px, 1fr)
+        auto;
       gap: 12px;
       align-items: center;
       padding: 15px 17px;
       border: 1px solid var(--border);
       border-radius: 14px;
-      background: linear-gradient(145deg, var(--panel-light), var(--panel));
+      background: linear-gradient(
+        145deg,
+        var(--panel-light),
+        var(--panel)
+      );
     }
 
     .history-table {
@@ -529,7 +579,7 @@
 
       .tabs {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
       }
 
       .tab-button {
@@ -542,7 +592,10 @@
       }
 
       .summary-grid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(
+          auto-fit,
+          minmax(150px, 1fr)
+        );
         gap: 9px;
       }
 
@@ -584,8 +637,10 @@
 <body>
   <main class="shell">
     <header class="hero">
-      <p class="eyebrow">Two Cabinets. One Competition.</p>
+      <p class="eyebrow">Remote Pinball Competition</p>
+
       <h1>VPX Remote Leaderboard</h1>
+
       <p class="subtitle">
         Track personal bests, compare table records, and settle the score
         from miles apart.
@@ -594,16 +649,36 @@
 
     <nav class="topbar" aria-label="Leaderboard navigation">
       <div class="tabs">
-        <button class="tab-button active" type="button" data-view="leaderboard">
+        <button
+          class="tab-button active"
+          type="button"
+          data-view="leaderboard"
+        >
           Leaderboard
         </button>
 
-        <button class="tab-button" type="button" data-view="submit">
+        <button
+          class="tab-button"
+          type="button"
+          data-view="submit"
+        >
           Submit Score
         </button>
 
-        <button class="tab-button" type="button" data-view="history">
+        <button
+          class="tab-button"
+          type="button"
+          data-view="history"
+        >
           History
+        </button>
+
+        <button
+          id="manageTablesButton"
+          class="tab-button"
+          type="button"
+        >
+          Manage Tables
         </button>
       </div>
 
@@ -612,7 +687,11 @@
           Not signed in
         </div>
 
-        <button id="authButton" class="secondary-button" type="button">
+        <button
+          id="authButton"
+          class="secondary-button"
+          type="button"
+        >
           Sign In
         </button>
       </div>
@@ -620,12 +699,17 @@
 
     <section id="leaderboardView" class="view active">
       <div id="summaryGrid" class="summary-grid">
-        <div class="loading-state">Loading players...</div>
+        <div class="loading-state">
+          Loading players...
+        </div>
       </div>
 
       <div class="toolbar">
         <div class="toolbar-group">
-          <label for="tableSearch">Find a table</label>
+          <label for="tableSearch">
+            Find a table
+          </label>
+
           <input
             id="tableSearch"
             type="search"
@@ -636,7 +720,9 @@
       </div>
 
       <div id="leaderboardGrid" class="table-grid">
-        <div class="loading-state">Loading leaderboard...</div>
+        <div class="loading-state">
+          Loading leaderboard...
+        </div>
       </div>
     </section>
 
@@ -645,12 +731,15 @@
         <h2>Player Sign In</h2>
 
         <p class="panel-intro">
-          Sign in to submit your high scores
+          Sign in to submit your high scores.
         </p>
 
         <form id="loginForm" class="form-grid">
           <div>
-            <label for="emailInput">Email address</label>
+            <label for="emailInput">
+              Email address
+            </label>
+
             <input
               id="emailInput"
               type="email"
@@ -661,7 +750,10 @@
           </div>
 
           <div>
-            <label for="passwordInput">Password</label>
+            <label for="passwordInput">
+              Password
+            </label>
+
             <input
               id="passwordInput"
               type="password"
@@ -671,7 +763,11 @@
             >
           </div>
 
-          <button id="loginButton" class="primary-button" type="submit">
+          <button
+            id="loginButton"
+            class="primary-button"
+            type="submit"
+          >
             Sign In
           </button>
         </form>
@@ -693,26 +789,43 @@
 
         <form id="scoreForm" class="form-grid">
           <div>
-            <label for="tableSelect">Table</label>
+            <label for="tableSelect">
+              Table
+            </label>
+
             <select id="tableSelect" required>
-              <option value="">Select a table</option>
+              <option value="">
+                Select a table
+              </option>
             </select>
           </div>
 
           <div>
-            <label for="playerSelect">Player</label>
-            <select id="playerSelect" required disabled>
-              <option value="">Sign in to identify player</option>
+            <label for="playerSelect">
+              Player
+            </label>
+
+            <select
+              id="playerSelect"
+              required
+              disabled
+            >
+              <option value="">
+                Sign in to identify player
+              </option>
             </select>
 
             <p class="field-help">
-              The signed-in account determines the player. This prevents one
-              player from submitting a score under the other player's name.
+              The signed-in account determines the player. This prevents
+              someone from submitting a score under another player's name.
             </p>
           </div>
 
           <div>
-            <label for="scoreInput">Score</label>
+            <label for="scoreInput">
+              Score
+            </label>
+
             <input
               id="scoreInput"
               type="text"
@@ -725,15 +838,25 @@
           </div>
 
           <div>
-            <label>Date achieved</label>
-            <div id="dateDisplay" class="date-display"></div>
+            <label>
+              Date achieved
+            </label>
+
+            <div
+              id="dateDisplay"
+              class="date-display"
+            ></div>
 
             <p class="field-help">
               Today's date is added automatically.
             </p>
           </div>
 
-          <button id="submitScoreButton" class="primary-button" type="submit">
+          <button
+            id="submitScoreButton"
+            class="primary-button"
+            type="submit"
+          >
             Submit Score
           </button>
         </form>
@@ -750,15 +873,22 @@
     <section id="historyView" class="view">
       <div class="toolbar">
         <div class="toolbar-group">
-          <label for="historyFilter">Filter history by table</label>
+          <label for="historyFilter">
+            Filter history by table
+          </label>
+
           <select id="historyFilter">
-            <option value="">All tables</option>
+            <option value="">
+              All tables
+            </option>
           </select>
         </div>
       </div>
 
       <div id="historyList" class="history-list">
-        <div class="loading-state">Loading score history...</div>
+        <div class="loading-state">
+          Loading score history...
+        </div>
       </div>
     </section>
 
@@ -810,38 +940,111 @@
     };
 
     const elements = {
-      tabButtons: document.querySelectorAll(".tab-button"),
+      tabButtons: document.querySelectorAll(
+        ".tab-button[data-view]"
+      ),
+
       views: document.querySelectorAll(".view"),
 
-      leaderboardView: document.getElementById("leaderboardView"),
-      submitView: document.getElementById("submitView"),
-      historyView: document.getElementById("historyView"),
+      manageTablesButton: document.getElementById(
+        "manageTablesButton"
+      ),
 
-      summaryGrid: document.getElementById("summaryGrid"),
-      leaderboardGrid: document.getElementById("leaderboardGrid"),
-      tableSearch: document.getElementById("tableSearch"),
+      leaderboardView: document.getElementById(
+        "leaderboardView"
+      ),
 
-      signedInText: document.getElementById("signedInText"),
-      authButton: document.getElementById("authButton"),
+      submitView: document.getElementById(
+        "submitView"
+      ),
 
-      loginPanel: document.getElementById("loginPanel"),
-      loginForm: document.getElementById("loginForm"),
-      loginButton: document.getElementById("loginButton"),
-      emailInput: document.getElementById("emailInput"),
-      passwordInput: document.getElementById("passwordInput"),
-      loginMessage: document.getElementById("loginMessage"),
+      historyView: document.getElementById(
+        "historyView"
+      ),
 
-      scorePanel: document.getElementById("scorePanel"),
-      scoreForm: document.getElementById("scoreForm"),
-      tableSelect: document.getElementById("tableSelect"),
-      playerSelect: document.getElementById("playerSelect"),
-      scoreInput: document.getElementById("scoreInput"),
-      dateDisplay: document.getElementById("dateDisplay"),
-      submitScoreButton: document.getElementById("submitScoreButton"),
-      scoreMessage: document.getElementById("scoreMessage"),
+      summaryGrid: document.getElementById(
+        "summaryGrid"
+      ),
 
-      historyFilter: document.getElementById("historyFilter"),
-      historyList: document.getElementById("historyList")
+      leaderboardGrid: document.getElementById(
+        "leaderboardGrid"
+      ),
+
+      tableSearch: document.getElementById(
+        "tableSearch"
+      ),
+
+      signedInText: document.getElementById(
+        "signedInText"
+      ),
+
+      authButton: document.getElementById(
+        "authButton"
+      ),
+
+      loginPanel: document.getElementById(
+        "loginPanel"
+      ),
+
+      loginForm: document.getElementById(
+        "loginForm"
+      ),
+
+      loginButton: document.getElementById(
+        "loginButton"
+      ),
+
+      emailInput: document.getElementById(
+        "emailInput"
+      ),
+
+      passwordInput: document.getElementById(
+        "passwordInput"
+      ),
+
+      loginMessage: document.getElementById(
+        "loginMessage"
+      ),
+
+      scorePanel: document.getElementById(
+        "scorePanel"
+      ),
+
+      scoreForm: document.getElementById(
+        "scoreForm"
+      ),
+
+      tableSelect: document.getElementById(
+        "tableSelect"
+      ),
+
+      playerSelect: document.getElementById(
+        "playerSelect"
+      ),
+
+      scoreInput: document.getElementById(
+        "scoreInput"
+      ),
+
+      dateDisplay: document.getElementById(
+        "dateDisplay"
+      ),
+
+      submitScoreButton: document.getElementById(
+        "submitScoreButton"
+      ),
+
+      scoreMessage: document.getElementById(
+        "scoreMessage"
+      ),
+
+      historyFilter: document.getElementById(
+        "historyFilter"
+      ),
+
+      historyList: document.getElementById(
+        "historyList"
+      )
     };
 
     function escapeHtml(value) {
@@ -887,9 +1090,14 @@
       });
     }
 
-    function showMessage(element, message, type = "info") {
+    function showMessage(
+      element,
+      message,
+      type = "info"
+    ) {
       element.textContent = message;
-      element.className = `status-message show ${type}`;
+      element.className =
+        `status-message show ${type}`;
     }
 
     function clearMessage(element) {
@@ -923,13 +1131,23 @@
     }
 
     function getPlayerName(playerId) {
-      const player = state.players.find((item) => item.id === playerId);
-      return player ? player.name : "Unknown Player";
+      const player = state.players.find((item) => {
+        return item.id === playerId;
+      });
+
+      return player
+        ? player.name
+        : "Unknown Player";
     }
 
     function getTableName(tableId) {
-      const table = state.tables.find((item) => item.id === tableId);
-      return table ? table.name : tableId;
+      const table = state.tables.find((item) => {
+        return item.id === tableId;
+      });
+
+      return table
+        ? table.name
+        : tableId;
     }
 
     function getHighestScore(playerId, tableId) {
@@ -942,11 +1160,14 @@
         return null;
       }
 
-      return matchingScores.reduce((highest, current) => {
-        return Number(current.score) > Number(highest.score)
-          ? current
-          : highest;
-      });
+      return matchingScores.reduce(
+        (highest, current) => {
+          return Number(current.score) >
+                 Number(highest.score)
+            ? current
+            : highest;
+        }
+      );
     }
 
     function calculateWins() {
@@ -961,21 +1182,29 @@
           .map((player) => {
             return {
               playerId: player.id,
-              highScore: getHighestScore(player.id, table.id)
+              highScore: getHighestScore(
+                player.id,
+                table.id
+              )
             };
           })
-          .filter((entry) => entry.highScore !== null);
+          .filter((entry) => {
+            return entry.highScore !== null;
+          });
 
         if (playerScores.length === 0) {
           return;
         }
 
         const highestValue = Math.max(
-          ...playerScores.map((entry) => Number(entry.highScore.score))
+          ...playerScores.map((entry) => {
+            return Number(entry.highScore.score);
+          })
         );
 
         const leaders = playerScores.filter((entry) => {
-          return Number(entry.highScore.score) === highestValue;
+          return Number(entry.highScore.score) ===
+                 highestValue;
         });
 
         if (leaders.length === 1) {
@@ -988,8 +1217,12 @@
 
     function renderSummary() {
       if (state.players.length === 0) {
-        elements.summaryGrid.innerHTML =
-          '<div class="empty-state">No players are configured.</div>';
+        elements.summaryGrid.innerHTML = `
+          <div class="empty-state">
+            No players are configured.
+          </div>
+        `;
+
         return;
       }
 
@@ -999,9 +1232,17 @@
         .map((player) => {
           return `
             <article class="summary-card">
-              <p class="summary-name">${escapeHtml(player.name)}</p>
-              <p class="summary-wins">${wins[player.id] ?? 0}</p>
-              <div class="summary-label">Tables Won</div>
+              <p class="summary-name">
+                ${escapeHtml(player.name)}
+              </p>
+
+              <p class="summary-wins">
+                ${wins[player.id] ?? 0}
+              </p>
+
+              <div class="summary-label">
+                Tables Won
+              </div>
             </article>
           `;
         })
@@ -1014,81 +1255,125 @@
         .toLowerCase();
 
       const filteredTables = state.tables.filter((table) => {
-        return table.name.toLowerCase().includes(searchText);
+        return table.name
+          .toLowerCase()
+          .includes(searchText);
       });
 
       if (filteredTables.length === 0) {
-        elements.leaderboardGrid.innerHTML =
-          '<div class="empty-state">No matching tables found.</div>';
+        elements.leaderboardGrid.innerHTML = `
+          <div class="empty-state">
+            No matching tables found.
+          </div>
+        `;
+
         return;
       }
 
-      elements.leaderboardGrid.innerHTML = filteredTables
-        .map((table) => {
-          const playerResults = state.players.map((player) => {
-            return {
-              player,
-              highScore: getHighestScore(player.id, table.id)
-            };
-          });
+      elements.leaderboardGrid.innerHTML =
+        filteredTables
+          .map((table) => {
+            const playerResults = state.players.map(
+              (player) => {
+                return {
+                  player,
+                  highScore: getHighestScore(
+                    player.id,
+                    table.id
+                  )
+                };
+              }
+            );
 
-          const availableScores = playerResults
-            .filter((result) => result.highScore !== null)
-            .map((result) => Number(result.highScore.score));
+            const availableScores = playerResults
+              .filter((result) => {
+                return result.highScore !== null;
+              })
+              .map((result) => {
+                return Number(result.highScore.score);
+              });
 
-          const topScore = availableScores.length > 0
-            ? Math.max(...availableScores)
-            : null;
+            const topScore =
+              availableScores.length > 0
+                ? Math.max(...availableScores)
+                : null;
 
-          const numberAtTop = playerResults.filter((result) => {
-            return result.highScore !== null &&
-                   Number(result.highScore.score) === topScore;
-          }).length;
+            const numberAtTop = playerResults.filter(
+              (result) => {
+                return result.highScore !== null &&
+                  Number(result.highScore.score) ===
+                    topScore;
+              }
+            ).length;
 
-          const scoreRows = playerResults
-            .map((result) => {
-              const hasScore = result.highScore !== null;
+            const scoreRows = playerResults
+              .map((result) => {
+                const hasScore =
+                  result.highScore !== null;
 
-              const isWinner =
-                hasScore &&
-                topScore !== null &&
-                Number(result.highScore.score) === topScore &&
-                numberAtTop === 1;
+                const isWinner =
+                  hasScore &&
+                  topScore !== null &&
+                  Number(result.highScore.score) ===
+                    topScore &&
+                  numberAtTop === 1;
 
-              const achievedDate = hasScore
-                ? formatDate(result.highScore.achievedAt)
-                : "No score submitted";
+                const achievedDate = hasScore
+                  ? formatDate(
+                      result.highScore.achievedAt
+                    )
+                  : "No score submitted";
 
-              return `
-                <div class="score-row ${isWinner ? "winner" : ""}">
-                  <div class="player-name">
-                    ${isWinner ? '<span class="trophy">🏆</span>' : ""}
-                    ${escapeHtml(result.player.name)}
+                return `
+                  <div
+                    class="score-row ${
+                      isWinner ? "winner" : ""
+                    }"
+                  >
+                    <div class="player-name">
+                      ${
+                        isWinner
+                          ? '<span class="trophy">🏆</span>'
+                          : ""
+                      }
+
+                      ${escapeHtml(result.player.name)}
+                    </div>
+
+                    <div class="score-number">
+                      ${
+                        hasScore
+                          ? formatScore(
+                              result.highScore.score
+                            )
+                          : "—"
+                      }
+
+                      <span class="record-date">
+                        ${escapeHtml(achievedDate)}
+                      </span>
+                    </div>
                   </div>
+                `;
+              })
+              .join("");
 
-                  <div class="score-number">
-                    ${hasScore ? formatScore(result.highScore.score) : "—"}
-                    <span class="record-date">
-                      ${escapeHtml(achievedDate)}
-                    </span>
-                  </div>
+            return `
+              <article class="game-card">
+                <div class="game-title">
+                  ${escapeHtml(table.name)}
                 </div>
-              `;
-            })
-            .join("");
 
-          return `
-            <article class="game-card">
-              <div class="game-title">${escapeHtml(table.name)}</div>
-              ${scoreRows}
-            </article>
-          `;
-        })
-        .join("");
+                ${scoreRows}
+              </article>
+            `;
+          })
+          .join("");
     }
 
     function renderHistory() {
-      const selectedTableId = elements.historyFilter.value;
+      const selectedTableId =
+        elements.historyFilter.value;
 
       const filteredScores = state.scores
         .filter((score) => {
@@ -1096,47 +1381,61 @@
                  score.tableId === selectedTableId;
         })
         .sort((a, b) => {
-          const dateA = a.submittedAt?.toMillis?.() ??
-                        a.achievedAt?.toMillis?.() ??
-                        0;
+          const dateA =
+            a.submittedAt?.toMillis?.() ??
+            a.achievedAt?.toMillis?.() ??
+            0;
 
-          const dateB = b.submittedAt?.toMillis?.() ??
-                        b.achievedAt?.toMillis?.() ??
-                        0;
+          const dateB =
+            b.submittedAt?.toMillis?.() ??
+            b.achievedAt?.toMillis?.() ??
+            0;
 
           return dateB - dateA;
         });
 
       if (filteredScores.length === 0) {
-        elements.historyList.innerHTML =
-          '<div class="empty-state">No scores have been submitted yet.</div>';
+        elements.historyList.innerHTML = `
+          <div class="empty-state">
+            No scores have been submitted yet.
+          </div>
+        `;
+
         return;
       }
 
-      elements.historyList.innerHTML = filteredScores
-        .map((score) => {
-          return `
-            <article class="history-item">
-              <div>
-                <div class="history-table">
-                  ${escapeHtml(getTableName(score.tableId))}
+      elements.historyList.innerHTML =
+        filteredScores
+          .map((score) => {
+            return `
+              <article class="history-item">
+                <div>
+                  <div class="history-table">
+                    ${escapeHtml(
+                      getTableName(score.tableId)
+                    )}
+                  </div>
+
+                  <span class="history-date">
+                    ${escapeHtml(
+                      formatDate(score.achievedAt)
+                    )}
+                  </span>
                 </div>
-                <span class="history-date">
-                  ${escapeHtml(formatDate(score.achievedAt))}
-                </span>
-              </div>
 
-              <div class="history-player">
-                ${escapeHtml(getPlayerName(score.playerId))}
-              </div>
+                <div class="history-player">
+                  ${escapeHtml(
+                    getPlayerName(score.playerId)
+                  )}
+                </div>
 
-              <div class="history-score">
-                ${formatScore(score.score)}
-              </div>
-            </article>
-          `;
-        })
-        .join("");
+                <div class="history-score">
+                  ${formatScore(score.score)}
+                </div>
+              </article>
+            `;
+          })
+          .join("");
     }
 
     function populateTableMenus() {
@@ -1150,22 +1449,36 @@
         })
         .join("");
 
-      elements.tableSelect.innerHTML =
-        '<option value="">Select a table</option>' + tableOptions;
+      elements.tableSelect.innerHTML = `
+        <option value="">
+          Select a table
+        </option>
+        ${tableOptions}
+      `;
 
-      elements.historyFilter.innerHTML =
-        '<option value="">All tables</option>' + tableOptions;
+      elements.historyFilter.innerHTML = `
+        <option value="">
+          All tables
+        </option>
+        ${tableOptions}
+      `;
     }
 
     function populatePlayerMenu() {
       if (!state.currentPlayer) {
-        elements.playerSelect.innerHTML =
-          '<option value="">Sign in to identify player</option>';
+        elements.playerSelect.innerHTML = `
+          <option value="">
+            Sign in to identify player
+          </option>
+        `;
+
         return;
       }
 
       elements.playerSelect.innerHTML = `
-        <option value="${escapeHtml(state.currentPlayer.id)}">
+        <option
+          value="${escapeHtml(state.currentPlayer.id)}"
+        >
           ${escapeHtml(state.currentPlayer.name)}
         </option>
       `;
@@ -1176,12 +1489,18 @@
         elements.signedInText.textContent =
           `Signed in as ${state.currentPlayer.name}`;
 
-        elements.authButton.textContent = "Sign Out";
+        elements.authButton.textContent =
+          "Sign Out";
+
         elements.loginPanel.hidden = true;
         elements.scorePanel.hidden = false;
       } else {
-        elements.signedInText.textContent = "Not signed in";
-        elements.authButton.textContent = "Sign In";
+        elements.signedInText.textContent =
+          "Not signed in";
+
+        elements.authButton.textContent =
+          "Sign In";
+
         elements.loginPanel.hidden = false;
         elements.scorePanel.hidden = true;
       }
@@ -1190,7 +1509,9 @@
     }
 
     async function loadPlayers() {
-      const snapshot = await getDocs(collection(db, "players"));
+      const snapshot = await getDocs(
+        collection(db, "players")
+      );
 
       state.players = snapshot.docs
         .map((document) => {
@@ -1199,17 +1520,25 @@
             ...document.data()
           };
         })
-        .filter((player) => player.active === true)
-        .sort((a, b) => a.name.localeCompare(b.name));
+        .filter((player) => {
+          return player.active === true;
+        })
+        .sort((a, b) => {
+          return a.name.localeCompare(b.name);
+        });
 
       if (state.user) {
         state.currentPlayer =
-          state.players.find((player) => player.id === state.user.uid) ?? null;
+          state.players.find((player) => {
+            return player.id === state.user.uid;
+          }) ?? null;
       }
     }
 
     async function loadTables() {
-      const snapshot = await getDocs(collection(db, "tables"));
+      const snapshot = await getDocs(
+        collection(db, "tables")
+      );
 
       state.tables = snapshot.docs
         .map((document) => {
@@ -1218,12 +1547,18 @@
             ...document.data()
           };
         })
-        .filter((table) => table.active === true)
-        .sort((a, b) => a.name.localeCompare(b.name));
+        .filter((table) => {
+          return table.active === true;
+        })
+        .sort((a, b) => {
+          return a.name.localeCompare(b.name);
+        });
     }
 
     async function loadScores() {
-      const snapshot = await getDocs(collection(db, "scores"));
+      const snapshot = await getDocs(
+        collection(db, "scores")
+      );
 
       state.scores = snapshot.docs.map((document) => {
         return {
@@ -1252,8 +1587,8 @@
 
         elements.leaderboardGrid.innerHTML = `
           <div class="empty-state">
-            The leaderboard could not load. Check the browser console and
-            verify the Firestore rules and collection names.
+            The leaderboard could not load. Check the
+            Firestore rules and collection names.
           </div>
         `;
 
@@ -1271,228 +1606,306 @@
       });
     });
 
-    elements.tableSearch.addEventListener("input", () => {
-      renderLeaderboard();
-    });
-
-    elements.historyFilter.addEventListener("change", () => {
-      renderHistory();
-    });
-
-    elements.scoreInput.addEventListener("input", () => {
-      const digitsOnly = elements.scoreInput.value.replace(/\D/g, "");
-
-      if (!digitsOnly) {
-        elements.scoreInput.value = "";
-        return;
+    elements.manageTablesButton.addEventListener(
+      "click",
+      () => {
+        window.location.href = "manage.html";
       }
+    );
 
-      elements.scoreInput.value =
-        Number(digitsOnly).toLocaleString("en-US");
-    });
-
-    elements.loginForm.addEventListener("submit", async (event) => {
-      event.preventDefault();
-      clearMessage(elements.loginMessage);
-
-      const email = elements.emailInput.value.trim();
-      const password = elements.passwordInput.value;
-
-      if (!email || !password) {
-        showMessage(
-          elements.loginMessage,
-          "Enter both your email address and password.",
-          "error"
-        );
-
-        return;
-      }
-
-      elements.loginButton.disabled = true;
-      elements.loginButton.textContent = "Signing In...";
-
-      try {
-        await signInWithEmailAndPassword(auth, email, password);
-
-        elements.loginForm.reset();
-
-        showMessage(
-          elements.loginMessage,
-          "Sign-in successful.",
-          "success"
-        );
-      } catch (error) {
-        console.error(error);
-
-        showMessage(
-          elements.loginMessage,
-          "Sign-in failed. Check the email address and password.",
-          "error"
-        );
-      } finally {
-        elements.loginButton.disabled = false;
-        elements.loginButton.textContent = "Sign In";
-      }
-    });
-
-    elements.authButton.addEventListener("click", async () => {
-      if (!state.user) {
-        setActiveView("submit");
-        elements.emailInput.focus();
-        return;
-      }
-
-      try {
-        await signOut(auth);
-        setActiveView("leaderboard");
-      } catch (error) {
-        console.error(error);
-      }
-    });
-
-    elements.scoreForm.addEventListener("submit", async (event) => {
-      event.preventDefault();
-      clearMessage(elements.scoreMessage);
-
-      if (!state.user || !state.currentPlayer) {
-        showMessage(
-          elements.scoreMessage,
-          "You must be signed in as a registered player.",
-          "error"
-        );
-
-        return;
-      }
-
-      const tableId = elements.tableSelect.value;
-      const scoreDigits = elements.scoreInput.value.replace(/\D/g, "");
-
-      if (!tableId) {
-        showMessage(
-          elements.scoreMessage,
-          "Select a table.",
-          "error"
-        );
-
-        return;
-      }
-
-      if (!scoreDigits) {
-        showMessage(
-          elements.scoreMessage,
-          "Enter a score greater than zero.",
-          "error"
-        );
-
-        return;
-      }
-
-      const score = Number(scoreDigits);
-
-      if (
-        !Number.isSafeInteger(score) ||
-        score <= 0
-      ) {
-        showMessage(
-          elements.scoreMessage,
-          "Enter a valid whole-number score. The number is missing, zero, or too large.",
-          "error"
-        );
-
-        return;
-      }
-
-      const selectedTable = state.tables.find((table) => {
-        return table.id === tableId;
-      });
-
-      if (!selectedTable) {
-        showMessage(
-          elements.scoreMessage,
-          "The selected table is not available.",
-          "error"
-        );
-
-        return;
-      }
-
-      elements.submitScoreButton.disabled = true;
-      elements.submitScoreButton.textContent = "Submitting...";
-
-      try {
-        const now = new Date();
-
-        await addDoc(collection(db, "scores"), {
-          playerId: state.user.uid,
-          tableId,
-          score,
-          achievedAt: Timestamp.fromDate(now),
-          submittedAt: serverTimestamp()
-        });
-
-        showMessage(
-          elements.scoreMessage,
-          `${state.currentPlayer.name}'s score of ${formatScore(score)} on ${selectedTable.name} was submitted successfully.`,
-          "success"
-        );
-
-        elements.scoreInput.value = "";
-
-        await loadScores();
-        renderSummary();
+    elements.tableSearch.addEventListener(
+      "input",
+      () => {
         renderLeaderboard();
+      }
+    );
+
+    elements.historyFilter.addEventListener(
+      "change",
+      () => {
         renderHistory();
-      } catch (error) {
-        console.error(error);
+      }
+    );
 
-        showMessage(
-          elements.scoreMessage,
-          "The score could not be submitted. Check your sign-in and Firestore security rules.",
-          "error"
+    elements.scoreInput.addEventListener(
+      "input",
+      () => {
+        const digitsOnly =
+          elements.scoreInput.value.replace(
+            /\D/g,
+            ""
+          );
+
+        if (!digitsOnly) {
+          elements.scoreInput.value = "";
+          return;
+        }
+
+        const numericScore = Number(digitsOnly);
+
+        if (!Number.isFinite(numericScore)) {
+          elements.scoreInput.value = "";
+          return;
+        }
+
+        elements.scoreInput.value =
+          numericScore.toLocaleString("en-US");
+      }
+    );
+
+    elements.loginForm.addEventListener(
+      "submit",
+      async (event) => {
+        event.preventDefault();
+
+        clearMessage(elements.loginMessage);
+
+        const email =
+          elements.emailInput.value.trim();
+
+        const password =
+          elements.passwordInput.value;
+
+        if (!email || !password) {
+          showMessage(
+            elements.loginMessage,
+            "Enter both your email address and password.",
+            "error"
+          );
+
+          return;
+        }
+
+        elements.loginButton.disabled = true;
+        elements.loginButton.textContent =
+          "Signing In...";
+
+        try {
+          await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+          );
+
+          elements.loginForm.reset();
+
+          showMessage(
+            elements.loginMessage,
+            "Sign-in successful.",
+            "success"
+          );
+        } catch (error) {
+          console.error(error);
+
+          showMessage(
+            elements.loginMessage,
+            "Sign-in failed. Check the email address and password.",
+            "error"
+          );
+        } finally {
+          elements.loginButton.disabled = false;
+          elements.loginButton.textContent =
+            "Sign In";
+        }
+      }
+    );
+
+    elements.authButton.addEventListener(
+      "click",
+      async () => {
+        if (!state.user) {
+          setActiveView("submit");
+          elements.emailInput.focus();
+          return;
+        }
+
+        try {
+          await signOut(auth);
+          setActiveView("leaderboard");
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    );
+
+    elements.scoreForm.addEventListener(
+      "submit",
+      async (event) => {
+        event.preventDefault();
+
+        clearMessage(elements.scoreMessage);
+
+        if (!state.user || !state.currentPlayer) {
+          showMessage(
+            elements.scoreMessage,
+            "You must be signed in as a registered player.",
+            "error"
+          );
+
+          return;
+        }
+
+        const tableId =
+          elements.tableSelect.value;
+
+        const scoreDigits =
+          elements.scoreInput.value.replace(
+            /\D/g,
+            ""
+          );
+
+        if (!tableId) {
+          showMessage(
+            elements.scoreMessage,
+            "Select a table.",
+            "error"
+          );
+
+          return;
+        }
+
+        if (!scoreDigits) {
+          showMessage(
+            elements.scoreMessage,
+            "Enter a score greater than zero.",
+            "error"
+          );
+
+          return;
+        }
+
+        const score = Number(scoreDigits);
+
+        if (
+          !Number.isSafeInteger(score) ||
+          score <= 0
+        ) {
+          showMessage(
+            elements.scoreMessage,
+            "Enter a valid whole-number score. The number is missing, zero, or too large.",
+            "error"
+          );
+
+          return;
+        }
+
+        const selectedTable = state.tables.find(
+          (table) => {
+            return table.id === tableId;
+          }
         );
-      } finally {
-        elements.submitScoreButton.disabled = false;
-        elements.submitScoreButton.textContent = "Submit Score";
+
+        if (!selectedTable) {
+          showMessage(
+            elements.scoreMessage,
+            "The selected table is not available.",
+            "error"
+          );
+
+          return;
+        }
+
+        elements.submitScoreButton.disabled = true;
+        elements.submitScoreButton.textContent =
+          "Submitting...";
+
+        try {
+          const now = new Date();
+
+          await addDoc(
+            collection(db, "scores"),
+            {
+              playerId: state.user.uid,
+              tableId,
+              score,
+              achievedAt: Timestamp.fromDate(now),
+              submittedAt: serverTimestamp()
+            }
+          );
+
+          showMessage(
+            elements.scoreMessage,
+            `${state.currentPlayer.name}'s score of ${formatScore(score)} on ${selectedTable.name} was submitted successfully.`,
+            "success"
+          );
+
+          elements.scoreInput.value = "";
+
+          await loadScores();
+
+          renderSummary();
+          renderLeaderboard();
+          renderHistory();
+        } catch (error) {
+          console.error(error);
+
+          showMessage(
+            elements.scoreMessage,
+            "The score could not be submitted. Check your sign-in and Firestore security rules.",
+            "error"
+          );
+        } finally {
+          elements.submitScoreButton.disabled = false;
+          elements.submitScoreButton.textContent =
+            "Submit Score";
+        }
       }
-    });
+    );
 
-    onAuthStateChanged(auth, async (user) => {
-      state.user = user;
-      state.currentPlayer = null;
+    onAuthStateChanged(
+      auth,
+      async (user) => {
+        state.user = user;
+        state.currentPlayer = null;
 
-      if (user && state.players.length > 0) {
-        state.currentPlayer =
-          state.players.find((player) => player.id === user.uid) ?? null;
+        if (
+          user &&
+          state.players.length > 0
+        ) {
+          state.currentPlayer =
+            state.players.find((player) => {
+              return player.id === user.uid;
+            }) ?? null;
+        }
+
+        if (
+          user &&
+          state.players.length === 0
+        ) {
+          await loadPlayers();
+
+          state.currentPlayer =
+            state.players.find((player) => {
+              return player.id === user.uid;
+            }) ?? null;
+        }
+
+        updateAuthInterface();
+
+        if (user && !state.currentPlayer) {
+          showMessage(
+            elements.loginMessage,
+            "This account is authenticated but does not have an active player record.",
+            "error"
+          );
+
+          await signOut(auth);
+        }
       }
-
-      if (user && state.players.length === 0) {
-        await loadPlayers();
-
-        state.currentPlayer =
-          state.players.find((player) => player.id === user.uid) ?? null;
-      }
-
-      updateAuthInterface();
-
-      if (user && !state.currentPlayer) {
-        showMessage(
-          elements.loginMessage,
-          "This account is authenticated but does not have an active player record.",
-          "error"
-        );
-
-        await signOut(auth);
-      }
-    });
+    );
 
     const today = new Date();
 
-    elements.dateDisplay.textContent = today.toLocaleDateString("en-US", {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric"
-    });
+    elements.dateDisplay.textContent =
+      today.toLocaleDateString(
+        "en-US",
+        {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric"
+        }
+      );
 
     refreshApplication();
   </script>
